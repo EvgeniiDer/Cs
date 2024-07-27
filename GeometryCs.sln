@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeometryCs", "GeometryCs\GeometryCs.csproj", "{33E306AE-4F62-479B-9FD2-F08B393AFB70}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessBoard", "ChessBoard\ChessBoard.csproj", "{A5930A37-A56B-4BEF-9CA1-9ED063AAD6F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{33E306AE-4F62-479B-9FD2-F08B393AFB70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33E306AE-4F62-479B-9FD2-F08B393AFB70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33E306AE-4F62-479B-9FD2-F08B393AFB70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5930A37-A56B-4BEF-9CA1-9ED063AAD6F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5930A37-A56B-4BEF-9CA1-9ED063AAD6F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5930A37-A56B-4BEF-9CA1-9ED063AAD6F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5930A37-A56B-4BEF-9CA1-9ED063AAD6F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
