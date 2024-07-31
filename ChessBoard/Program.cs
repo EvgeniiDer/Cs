@@ -1,10 +1,13 @@
-﻿namespace ChessBoard
+﻿using System;
+
+namespace ChessBoard
 {
-    internal class Program
+    class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Console.WriteLine("Hellow World");
         }
+
     }
 }
