@@ -1,6 +1,7 @@
 ﻿using System;
 
 namespace ChessBoard
+
 {
     class Program
     {
