@@ -3,7 +3,7 @@
 namespace Calc2
 {
        class Program
-    {
+       {
         static string expression;
         static void Main(string[] args)
         {
