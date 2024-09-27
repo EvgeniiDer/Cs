@@ -176,13 +176,15 @@ namespace SimpleLinkedList{
 
         public IEnumerator GetEnumerator()
         {
-            Node<T> iterator = Head;
+            return new Enumerator<T>(Head);
+            /*Node<T> iterator = Head;
             while(iterator != null)
             {
                 yield return iterator.getData(); // Выплевывает значение и потом обратно возвращеться в эту функцию
                 iterator = iterator.nextNode;
-            }
+            }*/
         }
+        public void Add(T _Data) => push_back(_Data);
     }
 
 

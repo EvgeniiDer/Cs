@@ -3,7 +3,7 @@ namespace SimpleLinkedList{
     class Program{
         static void Main(string[] argv)
         {
-            /*ForwardList<int> MyList = new ForwardList<int>();
+            ForwardList<int> MyList = new ForwardList<int>();
             Random rand = new Random(0);
             Console.WriteLine("Enter the size of List: ");
             int size = Convert.ToInt16(Console.ReadLine());
@@ -13,13 +13,13 @@ namespace SimpleLinkedList{
             }
             foreach(var check in MyList)
             {
-                Console.WriteLine(check);
+                Console.Write(check + " ");
             }
+            Console.WriteLine();
+            ForwardList<int> MyList2 = new ForwardList<int>{3, 4, 4, 4, 5};
 
-            ForwardList<int> MyList2 = new ForwardList<int>(3, 4, 4, 4, 5);
 
-
-            MyList2.Print2(temp => Console.WriteLine(temp)); // Аналог Лямбыды функции с++ 
+            MyList2.Print2(temp => Console.Write(temp + " ")); // Аналог Лямбыды функции с++ 
                                                             
             //MyList.Print();*/            
         }
