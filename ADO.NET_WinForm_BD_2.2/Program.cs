@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Configuration;
+
 using System.IO;
 namespace ADO.NET_WinForm_BD_2._2;
 using Microsoft.Extensions.Configuration;
@@ -20,8 +20,10 @@ internal static class Program
 
         IConfigurationBuilder builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
         Configuration = builder.Build();
+        //IConnector connector = new Connector(Configuration);
         ApplicationConfiguration.Initialize();
         Application.Run(new MainWindow());
+        
 
 
     }

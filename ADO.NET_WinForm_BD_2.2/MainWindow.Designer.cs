@@ -29,6 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             statusStrip = new StatusStrip();
             tabControl = new TabControl();
             tabPageStudents = new TabPage();
@@ -70,6 +71,7 @@
             tabPageStudents.TabIndex = 0;
             tabPageStudents.Text = "Studenyts";
             tabPageStudents.UseVisualStyleBackColor = true;
+            tabPageStudents.Click += tabPageStudents_Click;
             // 
             // tabPageGroups
             // 
@@ -118,6 +120,7 @@
             ClientSize = new Size(872, 512);
             Controls.Add(tabControl);
             Controls.Add(statusStrip);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainWindow";
             Text = "Academy";
             Load += MainWindow_Load;

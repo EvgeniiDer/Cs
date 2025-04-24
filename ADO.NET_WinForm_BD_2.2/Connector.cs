@@ -2,7 +2,7 @@
 using ADO.NET_WinForm_BD_2._2;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-
+using System.Runtime.InteropServices;
 public interface IConnector
 {
 	string ConnectionString { get; }
@@ -19,6 +19,8 @@ public class Connector : IConnector
 		{
 			throw new InvalidOperationException("There is no 'VPD_311_Import");
 		}
+		AllocConsole();
+		Console.WriteLine(_connectionString);
 	}
 	public string ConnectionString
 	{
@@ -28,5 +30,9 @@ public class Connector : IConnector
 	{
 		return new SqlConnection(_connectionString);
 	}
+	[DllImport("kernel32.dll")]
+	public static extern bool AllocConsole();
+	[DllImport("kernel32.dll")]
+	public static extern bool FreeConsole();
 
 }
