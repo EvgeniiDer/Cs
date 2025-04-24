@@ -16,9 +16,11 @@ internal static class Program
     {
         // To customize application configuration such as set high DPI settings or default font,
         // see https://aka.ms/applicationconfiguration.
-        
 
-        IConfigurationBuilder builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+        IConfigurationBuilder builder = new ConfigurationBuilder();
+        builder.SetBasePath(Directory.GetCurrentDirectory());
+        builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
         Configuration = builder.Build();
         //IConnector connector = new Connector(Configuration);
         ApplicationConfiguration.Initialize();

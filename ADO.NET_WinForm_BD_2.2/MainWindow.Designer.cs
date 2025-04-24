@@ -33,11 +33,26 @@
             statusStrip = new StatusStrip();
             tabControl = new TabControl();
             tabPageStudents = new TabPage();
+            dgvStudents = new DataGridView();
             tabPageGroups = new TabPage();
+            dgvGroups = new DataGridView();
             tabPageDirections = new TabPage();
+            dgvDirections = new DataGridView();
             tabPageDisciplines = new TabPage();
+            dgvDisciplines = new DataGridView();
             tabPageTeachers = new TabPage();
+            dgvTeachers = new DataGridView();
             tabControl.SuspendLayout();
+            tabPageStudents.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvStudents).BeginInit();
+            tabPageGroups.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvGroups).BeginInit();
+            tabPageDirections.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvDirections).BeginInit();
+            tabPageDisciplines.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvDisciplines).BeginInit();
+            tabPageTeachers.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvTeachers).BeginInit();
             SuspendLayout();
             // 
             // statusStrip
@@ -64,6 +79,7 @@
             // 
             // tabPageStudents
             // 
+            tabPageStudents.Controls.Add(dgvStudents);
             tabPageStudents.Location = new Point(4, 24);
             tabPageStudents.Name = "tabPageStudents";
             tabPageStudents.Padding = new Padding(3);
@@ -73,8 +89,18 @@
             tabPageStudents.UseVisualStyleBackColor = true;
             tabPageStudents.Click += tabPageStudents_Click;
             // 
+            // dgvStudents
+            // 
+            dgvStudents.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvStudents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvStudents.Location = new Point(3, 67);
+            dgvStudents.Name = "dgvStudents";
+            dgvStudents.Size = new Size(858, 392);
+            dgvStudents.TabIndex = 0;
+            // 
             // tabPageGroups
             // 
+            tabPageGroups.Controls.Add(dgvGroups);
             tabPageGroups.Location = new Point(4, 24);
             tabPageGroups.Name = "tabPageGroups";
             tabPageGroups.Padding = new Padding(3);
@@ -83,8 +109,18 @@
             tabPageGroups.Text = "Groups";
             tabPageGroups.UseVisualStyleBackColor = true;
             // 
+            // dgvGroups
+            // 
+            dgvGroups.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvGroups.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvGroups.Location = new Point(3, 67);
+            dgvGroups.Name = "dgvGroups";
+            dgvGroups.Size = new Size(858, 392);
+            dgvGroups.TabIndex = 0;
+            // 
             // tabPageDirections
             // 
+            tabPageDirections.Controls.Add(dgvDirections);
             tabPageDirections.Location = new Point(4, 24);
             tabPageDirections.Name = "tabPageDirections";
             tabPageDirections.Padding = new Padding(3);
@@ -93,8 +129,18 @@
             tabPageDirections.Text = "Directions";
             tabPageDirections.UseVisualStyleBackColor = true;
             // 
+            // dgvDirections
+            // 
+            dgvDirections.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvDirections.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvDirections.Location = new Point(3, 67);
+            dgvDirections.Name = "dgvDirections";
+            dgvDirections.Size = new Size(858, 392);
+            dgvDirections.TabIndex = 0;
+            // 
             // tabPageDisciplines
             // 
+            tabPageDisciplines.Controls.Add(dgvDisciplines);
             tabPageDisciplines.Location = new Point(4, 24);
             tabPageDisciplines.Name = "tabPageDisciplines";
             tabPageDisciplines.Padding = new Padding(3);
@@ -103,8 +149,18 @@
             tabPageDisciplines.Text = "Disciplines";
             tabPageDisciplines.UseVisualStyleBackColor = true;
             // 
+            // dgvDisciplines
+            // 
+            dgvDisciplines.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvDisciplines.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvDisciplines.Location = new Point(3, 67);
+            dgvDisciplines.Name = "dgvDisciplines";
+            dgvDisciplines.Size = new Size(858, 392);
+            dgvDisciplines.TabIndex = 0;
+            // 
             // tabPageTeachers
             // 
+            tabPageTeachers.Controls.Add(dgvTeachers);
             tabPageTeachers.Location = new Point(4, 24);
             tabPageTeachers.Name = "tabPageTeachers";
             tabPageTeachers.Padding = new Padding(3);
@@ -112,6 +168,15 @@
             tabPageTeachers.TabIndex = 4;
             tabPageTeachers.Text = "Teachers";
             tabPageTeachers.UseVisualStyleBackColor = true;
+            // 
+            // dgvTeachers
+            // 
+            dgvTeachers.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvTeachers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvTeachers.Location = new Point(3, 67);
+            dgvTeachers.Name = "dgvTeachers";
+            dgvTeachers.Size = new Size(858, 392);
+            dgvTeachers.TabIndex = 0;
             // 
             // MainWindow
             // 
@@ -125,6 +190,16 @@
             Text = "Academy";
             Load += MainWindow_Load;
             tabControl.ResumeLayout(false);
+            tabPageStudents.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvStudents).EndInit();
+            tabPageGroups.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvGroups).EndInit();
+            tabPageDirections.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvDirections).EndInit();
+            tabPageDisciplines.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvDisciplines).EndInit();
+            tabPageTeachers.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvTeachers).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -138,5 +213,10 @@
         private TabPage tabPageDirections;
         private TabPage tabPageDisciplines;
         private TabPage tabPageTeachers;
+        private DataGridView dgvStudents;
+        private DataGridView dgvGroups;
+        private DataGridView dgvDirections;
+        private DataGridView dgvDisciplines;
+        private DataGridView dgvTeachers;
     }
 }
