@@ -31,10 +31,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             statusStrip = new StatusStrip();
+            statusStripCountLabel = new ToolStripStatusLabel();
             tabControl = new TabControl();
             tabPageStudents = new TabPage();
             dgvStudents = new DataGridView();
             tabPageGroups = new TabPage();
+            cbGroups = new ComboBox();
             dgvGroups = new DataGridView();
             tabPageDirections = new TabPage();
             dgvDirections = new DataGridView();
@@ -42,7 +44,6 @@
             dgvDisciplines = new DataGridView();
             tabPageTeachers = new TabPage();
             dgvTeachers = new DataGridView();
-            statusStripCountLabel = new ToolStripStatusLabel();
             statusStrip.SuspendLayout();
             tabControl.SuspendLayout();
             tabPageStudents.SuspendLayout();
@@ -66,6 +67,12 @@
             statusStrip.TabIndex = 0;
             statusStrip.Text = "statusStrip1";
             // 
+            // statusStripCountLabel
+            // 
+            statusStripCountLabel.Name = "statusStripCountLabel";
+            statusStripCountLabel.Size = new Size(123, 17);
+            statusStripCountLabel.Text = "statusStripCountLabel";
+            // 
             // tabControl
             // 
             tabControl.Controls.Add(tabPageStudents);
@@ -79,6 +86,7 @@
             tabControl.SelectedIndex = 0;
             tabControl.Size = new Size(872, 490);
             tabControl.TabIndex = 1;
+            tabControl.SelectedIndexChanged += tabControl_SelectedIndexChanged;
             // 
             // tabPageStudents
             // 
@@ -103,6 +111,7 @@
             // 
             // tabPageGroups
             // 
+            tabPageGroups.Controls.Add(cbGroups);
             tabPageGroups.Controls.Add(dgvGroups);
             tabPageGroups.Location = new Point(4, 24);
             tabPageGroups.Name = "tabPageGroups";
@@ -111,6 +120,15 @@
             tabPageGroups.TabIndex = 1;
             tabPageGroups.Text = "Groups";
             tabPageGroups.UseVisualStyleBackColor = true;
+            // 
+            // cbGroups
+            // 
+            cbGroups.FormattingEnabled = true;
+            cbGroups.Location = new Point(6, 0);
+            cbGroups.Name = "cbGroups";
+            cbGroups.Size = new Size(121, 23);
+            cbGroups.TabIndex = 1;
+            cbGroups.SelectionChangeCommitted += cbGroups_SelectionChangeCommitted;
             // 
             // dgvGroups
             // 
@@ -181,12 +199,6 @@
             dgvTeachers.Size = new Size(858, 392);
             dgvTeachers.TabIndex = 0;
             // 
-            // statusStripCountLabel
-            // 
-            statusStripCountLabel.Name = "statusStripCountLabel";
-            statusStripCountLabel.Size = new Size(123, 17);
-            statusStripCountLabel.Text = "statusStripCountLabel";
-            // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -230,5 +242,6 @@
         private DataGridView dgvDisciplines;
         private DataGridView dgvTeachers;
         private ToolStripStatusLabel statusStripCountLabel;
+        private ComboBox cbGroups;
     }
 }

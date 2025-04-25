@@ -18,13 +18,14 @@ public class DataBase
 			_connector = connector;
 			
     }
-	public DataTable Select(string columns, string tables, string condition = "")
+	public DataTable Select(string columns, string tables, string condition = "", string group_by = "")
 	{
 		DataTable dataTable = null;
-		string cmd = $"SELECT{columns} FROM {tables}";
+		string cmd = $"SELECT {columns} FROM {tables}";
 		if (!string.IsNullOrWhiteSpace(condition))
 			cmd += $" WHERE {condition}";
-		
+		if (!string.IsNullOrWhiteSpace(group_by))
+			cmd += $" GROUP BY {group_by}";
         _connection = _connector.GetConnection();
 		_connection.Open();
 		if(_connection.State == ConnectionState.Open)
