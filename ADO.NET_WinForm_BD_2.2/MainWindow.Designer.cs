@@ -42,6 +42,8 @@
             dgvDisciplines = new DataGridView();
             tabPageTeachers = new TabPage();
             dgvTeachers = new DataGridView();
+            statusStripCountLabel = new ToolStripStatusLabel();
+            statusStrip.SuspendLayout();
             tabControl.SuspendLayout();
             tabPageStudents.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvStudents).BeginInit();
@@ -57,6 +59,7 @@
             // 
             // statusStrip
             // 
+            statusStrip.Items.AddRange(new ToolStripItem[] { statusStripCountLabel });
             statusStrip.Location = new Point(0, 490);
             statusStrip.Name = "statusStrip";
             statusStrip.Size = new Size(872, 22);
@@ -178,6 +181,12 @@
             dgvTeachers.Size = new Size(858, 392);
             dgvTeachers.TabIndex = 0;
             // 
+            // statusStripCountLabel
+            // 
+            statusStripCountLabel.Name = "statusStripCountLabel";
+            statusStripCountLabel.Size = new Size(123, 17);
+            statusStripCountLabel.Text = "statusStripCountLabel";
+            // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -189,6 +198,8 @@
             Name = "MainWindow";
             Text = "Academy";
             Load += MainWindow_Load;
+            statusStrip.ResumeLayout(false);
+            statusStrip.PerformLayout();
             tabControl.ResumeLayout(false);
             tabPageStudents.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvStudents).EndInit();
@@ -218,5 +229,6 @@
         private DataGridView dgvDirections;
         private DataGridView dgvDisciplines;
         private DataGridView dgvTeachers;
+        private ToolStripStatusLabel statusStripCountLabel;
     }
 }

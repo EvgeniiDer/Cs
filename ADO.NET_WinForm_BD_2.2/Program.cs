@@ -22,8 +22,6 @@ internal static class Program
         builder.SetBasePath(Directory.GetCurrentDirectory());
         builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
         Configuration = builder.Build();
-        //DataBase db = new DataBase(new Connector(Configuration));
-        //db.Select("*", " Students");
         ApplicationConfiguration.Initialize();
         Application.Run(new MainWindow());
         

@@ -15,7 +15,11 @@ namespace ADO.NET_WinForm_BD_2._2
 
             DataBase db = new DataBase(new Connector(Program.Configuration));
             dgvStudents.DataSource = db.Select("*","Students");
-            
+            dgvGroups.DataSource = db.Select("*", "Groups");
+            dgvDirections.DataSource = db.Select("*", "Directions");
+            dgvDisciplines.DataSource = db.Select("*", "Disciplines");
+            dgvTeachers.DataSource = db.Select("*", "Teachers");
+            statusStripCountLabel.Text = $"Total Students: {dgvStudents.Rows.Count - 1}";
         }
 
         private void MainWindow_Load(object sender, EventArgs e)

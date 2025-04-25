@@ -40,7 +40,7 @@ public class DataBase
         SqlCommand command = new SqlCommand(cmd, _connection);
 		Console.WriteLine($"- CommandText: {command.CommandText}");		
 		SqlDataReader reader = command.ExecuteReader();
-		if(reader.HasRows)
+		try
 		{ 
 			dataTable = new DataTable();
 			for(int i = 0; i < reader.FieldCount; i++)
@@ -60,8 +60,21 @@ public class DataBase
 			_connection.Close();
 			return dataTable;
 		}
-		else 
-		return null;
+		catch(SqlException sqlExp)
+		{
+			Console.WriteLine($"Sql Error: {sqlExp.Message}");
+		}
+		catch(Exception ex)
+		{
+			Console.WriteLine($"An error occurred: {ex.Message}"); 
+		}
+		finally
+		{
+            reader.Close();
+            _connection.Close();
+            
+        }
+		return dataTable;
 	}
 	private SqlConnection _connection;
 	private IConnector _connector;
