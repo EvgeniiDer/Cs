@@ -34,6 +34,8 @@
             statusStripCountLabel = new ToolStripStatusLabel();
             tabControl = new TabControl();
             tabPageStudents = new TabPage();
+            cbGroupsStudetns = new ComboBox();
+            cbDirectionStudents = new ComboBox();
             dgvStudents = new DataGridView();
             tabPageGroups = new TabPage();
             cbGroups = new ComboBox();
@@ -90,6 +92,8 @@
             // 
             // tabPageStudents
             // 
+            tabPageStudents.Controls.Add(cbGroupsStudetns);
+            tabPageStudents.Controls.Add(cbDirectionStudents);
             tabPageStudents.Controls.Add(dgvStudents);
             tabPageStudents.Location = new Point(4, 24);
             tabPageStudents.Name = "tabPageStudents";
@@ -98,7 +102,25 @@
             tabPageStudents.TabIndex = 0;
             tabPageStudents.Text = "Studenyts";
             tabPageStudents.UseVisualStyleBackColor = true;
-            tabPageStudents.Click += tabPageStudents_Click;
+            
+            // 
+            // cbGroupsStudetns
+            // 
+            cbGroupsStudetns.FormattingEnabled = true;
+            cbGroupsStudetns.Location = new Point(133, 4);
+            cbGroupsStudetns.Name = "cbGroupsStudetns";
+            cbGroupsStudetns.Size = new Size(121, 23);
+            cbGroupsStudetns.TabIndex = 2;
+            cbGroupsStudetns.SelectionChangeCommitted += cbGroupsStudetns_SelectionChangeCommitted;
+            // 
+            // cbDirectionStudents
+            // 
+            cbDirectionStudents.FormattingEnabled = true;
+            cbDirectionStudents.Location = new Point(6, 4);
+            cbDirectionStudents.Name = "cbDirectionStudents";
+            cbDirectionStudents.Size = new Size(121, 23);
+            cbDirectionStudents.TabIndex = 1;
+            cbDirectionStudents.SelectionChangeCommitted += cbDirectionStudents_SelectionChangeCommitted;
             // 
             // dgvStudents
             // 
@@ -243,5 +265,7 @@
         private DataGridView dgvTeachers;
         private ToolStripStatusLabel statusStripCountLabel;
         private ComboBox cbGroups;
+        private ComboBox cbGroupsStudetns;
+        private ComboBox cbDirectionStudents;
     }
 }

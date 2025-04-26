@@ -53,12 +53,81 @@ namespace ADO.NET_WinForm_BD_2._2
 
             db = new DataBase(new Connector(Program.Configuration));
             dgvStudents.DataSource = db.Select("*", "Students");
-            dgvGroups.DataSource = db.Select("*", "Groups");
-            dgvDirections.DataSource = db.Select("*", "Directions");
+            //dgvGroups.DataSource = db.Select("*", "Groups");          Done
+            //dgvDirections.DataSource = db.Select("*", "Directions");  Done
             dgvDisciplines.DataSource = db.Select("*", "Disciplines");
             dgvTeachers.DataSource = db.Select("*", "Teachers");
             statusStripCountLabel.Text = $"Total Students: {dgvStudents.Rows.Count - 1}";
         }
+        private void LoadStudentGroupComboBox(string directionName = null)
+        {
+            ComboBox targetComboBox = cbGroupsStudetns;
+            if (targetComboBox == null)
+            {
+                MessageBox.Show("Error: cbDirectionStudents for Students not found");
+            }
+            List<string> groupsName = new List<string>();
+            string columnsToSelect = "group_name";
+            string tableName = "Groups";
+            string conditions = null;
+            if (!string.IsNullOrWhiteSpace(directionName) && directionName != "All directions")
+            {
+                string escapedDirectionName = directionName.Replace("'", "''");
+                conditions = $"direction = (SELECT direction_id FROM Directions WHERE direction_name = '{escapedDirectionName}')";
+            }
+            DataTable result = db.Select(columnsToSelect, tableName, conditions);
+            if (result is DataTable dt && dt.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    groupsName.Add(row[columnsToSelect].ToString());
+                }
+            }
+            targetComboBox.Items.Clear();
+            targetComboBox.Items.Add("All groups");
+            targetComboBox.Items.AddRange(groupsName.ToArray());
+            targetComboBox.SelectedIndex = 0;
+            targetComboBox.Enabled = targetComboBox.Items.Count > 0;
+
+        }
+        private void LoadStudentDiectionComboBox()
+        {
+            ComboBox targetComboBox = cbDirectionStudents;
+            if (targetComboBox == null)
+            {
+                MessageBox.Show("Error: cbDirectionStudents for Students not found");
+            }
+            List<string> directionsName = new List<string>();
+            string columnsToSelect = "direction_name";
+            string tableName = "Directions";
+            DataTable result = db.Select(columnsToSelect, tableName);
+            if (result is DataTable dt && dt.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    directionsName.Add(row[columnsToSelect].ToString());
+                }
+            }
+            for (int i = 0; i < directionsName.Count; i++)
+            {
+                cbDirectionStudents.Items.Add(directionsName[i]);
+            }
+            targetComboBox.Items.Clear();
+            targetComboBox.Items.Add("All directions");
+            targetComboBox.Items.AddRange(directionsName.ToArray());
+            targetComboBox.SelectedIndex = 0;
+            targetComboBox.Enabled = targetComboBox.Items.Count > 0;
+            /*if (targetComboBox.Items.Count > 0)
+            {
+                targetComboBox.SelectedIndex = 0; 
+                targetComboBox.Enabled = true;
+            }
+            else
+            {
+                targetComboBox.Enabled = false;
+            }*/
+        }
+
         private void LoadDisciplinesIntoComboBox()
         {
             ComboBox targetComboBox = cbGroups;
@@ -85,11 +154,8 @@ namespace ADO.NET_WinForm_BD_2._2
         private void MainWindow_Load(object sender, EventArgs e)
         {
             LoadDisciplinesIntoComboBox();
-        }
-
-        private void tabPageStudents_Click(object sender, EventArgs e)
-        {
-
+            LoadStudentDiectionComboBox();
+            LoadStudentGroupComboBox();
         }
 
         private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
@@ -101,25 +167,29 @@ namespace ADO.NET_WinForm_BD_2._2
 
         private void cbGroups_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            if(cbGroups.SelectedIndex == null)
+            if (cbGroups.SelectedIndex == null)
             {
                 try
                 {
                     dgvGroups.DataSource = db.Select("*", "Groups");
                     UpdateGroupStatusLabel();
                 }
-                catch(Exception ex) 
+                catch (Exception ex)
                 {
                     MessageBox.Show($"Error: {ex.Message}", "Error DataBas: ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    dgvGroups.DataSource = null; // ќчищаем при ошибке
+                    dgvGroups.DataSource = null;
                     statusStripCountLabel.Text = "Total Group: Loading Error";
-                    
+
                 }
             }
             string selectedDirectionName = cbGroups.SelectedItem.ToString();
             string columns = "G.group_id, G.group_name";
             string tables = "Groups AS G INNER JOIN Directions AS D ON G.direction = D.direction_id";
-            string escapedDirectionName = selectedDirectionName.Replace("'", "''");
+            /*Ёта часть кода берет название направлени€, выбранное пользователем, 
+             * "экранирует" в нем одинарные кавычки (замен€€ ' на '' дл€ совместимости с SQL)
+             * и затем формирует готовую строку услови€ дл€ SQL-запроса (WHERE D.direction_name = 'выбранное_значение'),
+             * которую можно использовать дл€ фильтрации данных в базе.*/
+            string escapedDirectionName = selectedDirectionName.Replace("'", "''"); //экранирвоание запрсоа дополнительной ковычкой
             string conditions = $"D.direction_name = '{escapedDirectionName}'";
             DataTable filteredGroups = db.Select(columns, tables, conditions);
             dgvGroups.DataSource = filteredGroups;
@@ -127,7 +197,7 @@ namespace ADO.NET_WinForm_BD_2._2
         }
         private void UpdateGroupStatusLabel()
         {
-            if(dgvGroups.DataSource != null)
+            if (dgvGroups.DataSource != null)
             {
                 int rowCount = dgvGroups.AllowUserToAddRows ? dgvGroups.RowCount - 1 : dgvGroups.RowCount;
                 statusStripCountLabel.Text = $"Total Group: {rowCount}";
@@ -136,6 +206,40 @@ namespace ADO.NET_WinForm_BD_2._2
             {
                 statusStripCountLabel.Text = "Total Group: 0";
             }
+        }
+
+        private void cbDirectionStudents_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            string selectionDirection = cbDirectionStudents.SelectedItem.ToString();
+            LoadStudentGroupComboBox(selectionDirection);
+            string columns = "*";
+            string table = "Students";
+            string conditions = null;
+            if (selectionDirection != "All directions")
+            {
+                string escapedDirection = selectionDirection.Replace("'", "''");
+                conditions = $"[group] IN (SELECT group_id FROM Groups WHERE direction = (SELECT direction_id FROM Directions WHERE direction_name = '{escapedDirection}'))";
+            }
+
+            dgvStudents.DataSource = db.Select(columns, table, conditions);
+            statusStripCountLabel.Text = $"Total Students: {dgvStudents.Rows.Count - 1}";
+        }
+
+        private void cbGroupsStudetns_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            string selectedGroup = cbGroupsStudetns.SelectedItem.ToString();
+            string columns = "*";
+            string table = "Students";
+            string conditions = null;
+
+            if(selectedGroup != "All groups")
+            {
+                string escapedGroup = selectedGroup.Replace("'", "''");
+                conditions = $"[group] = (SELECT group_id FROM Groups WHERE group_name = '{escapedGroup}')";
+            }
+
+            dgvStudents.DataSource = db.Select(columns, table, conditions);
+            statusStripCountLabel.Text = $"Total Students: {dgvStudents.Rows.Count - 1}";
         }
     }
 }
