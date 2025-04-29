@@ -52,7 +52,7 @@ namespace ADO.NET_WinForm_BD_2._2
             };
 
             db = new DataBase(new Connector(Program.Configuration));
-            dgvStudents.DataSource = db.Select("*", "Students");
+            //dgvStudents.DataSource = db.Select("*", "Students");      Done
             //dgvGroups.DataSource = db.Select("*", "Groups");          Done
             //dgvDirections.DataSource = db.Select("*", "Directions");  Done
             dgvDisciplines.DataSource = db.Select("*", "Disciplines");
@@ -108,10 +108,10 @@ namespace ADO.NET_WinForm_BD_2._2
                     directionsName.Add(row[columnsToSelect].ToString());
                 }
             }
-            for (int i = 0; i < directionsName.Count; i++)
+            /*for (int i = 0; i < directionsName.Count; i++)
             {
                 cbDirectionStudents.Items.Add(directionsName[i]);
-            }
+            }*/ 
             targetComboBox.Items.Clear();
             targetComboBox.Items.Add("All directions");
             targetComboBox.Items.AddRange(directionsName.ToArray());
@@ -211,7 +211,7 @@ namespace ADO.NET_WinForm_BD_2._2
         private void cbDirectionStudents_SelectionChangeCommitted(object sender, EventArgs e)
         {
             string selectionDirection = cbDirectionStudents.SelectedItem.ToString();
-            LoadStudentGroupComboBox(selectionDirection);
+            LoadStudentGroupComboBox(selectionDirection);//
             string columns = "*";
             string table = "Students";
             string conditions = null;
