@@ -1,5 +1,6 @@
 
 using Microsoft.Extensions.Configuration;
+using DataAccess;
 namespace DataCacheManager
 {
     internal static class Program
