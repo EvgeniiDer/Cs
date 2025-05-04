@@ -1,6 +1,4 @@
-//using Connector;
-//using DataBase;
-//using Cache;
+
 using Microsoft.Extensions.Configuration;
 namespace DataCacheManager
 {

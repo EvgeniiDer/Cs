@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Cache\Cache.csproj" />
     <ProjectReference Include="..\Connector\Connector.csproj" />
   </ItemGroup>
 
