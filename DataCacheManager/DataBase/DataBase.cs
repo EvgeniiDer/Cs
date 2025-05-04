@@ -1,4 +1,5 @@
-﻿namespace DataBase
+﻿using Connector;
+namespace DataBase
 {
     public class DataBase
     {
