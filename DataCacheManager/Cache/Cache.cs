@@ -1,9 +1,11 @@
 ﻿using System.Data;
 using Microsoft.Extensions.Logging;
-using DataBaseConnector;
+using DataAccess;
 using Microsoft.Extensions.Primitives;
 using System.Timers;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+using System.Runtime.InteropServices;
 
 
 namespace DataSetCache
@@ -19,17 +21,15 @@ namespace DataSetCache
     {
         private DataSet _dataSet;
         private readonly System.Timers.Timer _timer;
-        private readonly IConnector _connector;
-        private readonly ILogger<DataCache> _logger;//Logging: Добавлен ILogger<DataCache> для логирования событий. Это необязательно, но настоятельно рекомендуется для отладки и мониторинга.
-        private readonly string _directionQuery = "SELECT * FROM Directions";
-        private readonly string _groupsQuery = "SELECT * FROM Groups";
+        private readonly IDataBase _dataBase;
+        //private readonly ILogger<DataCache> _logger;//Logging: Добавлен ILogger<DataCache> для логирования событий. Это необязательно, но настоятельно рекомендуется для отладки и мониторинга.
         private bool _idDisposed = false;
 
-        public DataCache(IConnector connector, double refreshIntervalMinutes = 5, ILogger<DataCache> logger = null)
+        public DataCache(IConfiguration configuration, double refreshIntervalMinutes = 5/*, ILogger<DataCache> logger = null*/)
         {
-            _connector = connector ?? throw new ArgumentNullException(nameof(connector));// проверка если аргумент connecter будет Null вылезет исключение !!!
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-
+            AllocConsole();
+            _dataBase = new DataBase(configuration);
+            //_logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _dataSet = new DataSet();
 
             initializeDataSet();
@@ -43,47 +43,68 @@ namespace DataSetCache
         {
             return _dataSet;
         }
+        public SqlConnection GetConnection()
+        {
+            return _dataBase.GetConnection();
+        }
         public void Start()
         {
             _timer.Enabled = true;
-            _logger?.LogInformation("Cache timer started.");
+            Console.WriteLine("Cache timer starte");
+           // _logger?.LogInformation("Cache timer started.");
         }
         public void Stop()
         {
             _timer.Stop();
-            _logger?.LogInformation("Cache timer stopped");
+            Console.WriteLine("Cache timer stopped");
+            //_logger?.LogInformation("Cache timer stopped");
         }
         private void OnTimerElapsed(Object sender, ElapsedEventArgs e)
         {
-            _logger?.LogInformation("Timer elapsed, refreshing data....");
+            //_logger?.LogInformation("Timer elapsed, refreshing data....");
+            Console.WriteLine("Timer elapsed, elapsed, refreshing data.....");
             LoadData();
         }
         private void LoadData()
         {
             try
             {
-                _logger?.LogInformation("Loading data from database.....");
 
-                _dataSet.Tables["Directions"].Clear(); //// Заменить  
-                _dataSet.Tables["Groups"].Clear();// Заменить
-                using(SqlConnection connection = new SqlConnection(_connector.ConnectionString))
-                {
-                    connection.Open();
+                // Обновление таблицы Directions
+                _dataSet.Tables[0].Clear();
+                FillTable(_dataSet.Tables[0], "SELECT * FROM Directions", _dataBase.GetConnection());
 
-                    FillTable(_dataSet.Tables["Directions"], _directionQuery, connection);//Заменить !!
-                    FillTable(_dataSet.Tables["Groups"], _groupsQuery, connection);//Заменит 
-                }
-                _logger?.LogInformation("Data loaded successfully");
+                // Обновление таблицы Groups
+                _dataSet.Tables[1].Clear();
+                FillTable(_dataSet.Tables[2], "SELECT * FROM Groups", _dataBase.GetConnection());
+
+                // Обновление таблицы Students
+                _dataSet.Tables[2].Clear();
+                FillTable(_dataSet.Tables[2], "SELECT stud_id, last_name, first_name, middle_name, birth_date, [group] " +
+                    "FROM Students AS St INNER JOIN Groups AS Gr ON Gr.group_id = St.[group]", _dataBase.GetConnection());
+
+
+
+
+
+                //_logger?.LogInformation("Data loaded successfully");
+                Console.WriteLine("Data loaded successfully");
             }
             catch (Exception ex)
             {
-                _logger?.LogError(ex, "Error loading data");
+                //_logger?.LogError(ex, "Error loading data");
+                Console.WriteLine("Error loading data" + ex);
             }
         }
-        private void FillTable(DataTable table, string query, SqlConnection connection)
+        public DataTable GetTable(int index)
+        {
+            return _dataSet.Tables[index];
+        }
+        public void FillTable(DataTable table, string query, SqlConnection connection)
         {
             try
             {
+                table.Clear();
                 using(SqlDataAdapter adapter = new SqlDataAdapter(query, connection))
                 {
                     adapter.Fill(table);
@@ -91,19 +112,28 @@ namespace DataSetCache
             }
             catch (Exception ex)
             {
-                _logger?.LogError(ex, $"Error filling table {table.TableName}");
+                //_logger?.LogError(ex, $"Error filling table {table.TableName}");
+                Console.WriteLine("Error filling table " + table.TableName);
             }
         }
-        private void initializeDataSet()
+        public void initializeDataSet()
         {
             _dataSet.Tables.Clear();//очищаем коллекцию(аналог контейнера с++) от таблиц которые там могу быть
             _dataSet.Relations.Clear();//очищаем связи менжду таблицами если они есть
-            AddTable("Directions", "direction_id,direction_name", out var directionsTable);
-            AddTable("Groups", "group_id, group_name,direction", out var groupsTable);
-            //откдуа теперь переменные которые выше мы вставляли в метод AddTable можно использовать дальше 
-            AddRelation("GroupsDirections", groupsTable, "direction", directionsTable, "direction_id");
+            AddTable("Directions", "direction_name", out var directionsTable);
+            FillTable(directionsTable, "SELECT* FROM Directions", _dataBase.GetConnection());
+
+            AddTable("Groups", "group_name", out var groupsTable);
+            string GroupsDirection = "SELECT* FROM Groups";
+            FillTable(groupsTable, GroupsDirection, _dataBase.GetConnection());
+
+            string studentsTableQueryb = "SELECT stud_id,last_name,first_name,middle_name,birth_date,[group] FROM Students as St INNER JOIN Groups AS Gr ON Gr.group_id = St.[group]";
+            AddTable("Students", "stud_id,last_name,first_name,middle_name,birth_date", out var studentsTable);
+            FillTable(studentsTable, studentsTableQueryb, _dataBase.GetConnection());
+            //AddRelation("GroupsDirections", groupsTable, "direction", directionsTable, "direction_id");
 
         }
+
         private void AddTable(string tableName, string columns, out DataTable dataTable)// out Говорит о том что этот класс не надо создавать и передавать как аргуемент он будет создан внутри метода
         {
             //TypeKeyType
@@ -133,8 +163,14 @@ namespace DataSetCache
                 _timer.Dispose();
                 _idDisposed = true;
 
-                _logger?.LogInformation("DataCache disposed");
+                //_logger?.LogInformation("DataCache disposed");
+                Console.WriteLine("DataCahe disposed");
             }
         }
+        [DllImport("kernel32.dll")]
+        public static extern bool AllocConsole();
+        [DllImport("kernel32.dll")]
+        public static extern bool FreeConsole();
     }
+
 }

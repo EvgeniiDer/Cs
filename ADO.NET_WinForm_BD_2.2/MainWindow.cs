@@ -211,6 +211,7 @@ namespace ADO.NET_WinForm_BD_2._2
         private void cbDirectionStudents_SelectionChangeCommitted(object sender, EventArgs e)
         {
             string selectionDirection = cbDirectionStudents.SelectedItem.ToString();
+            Console.WriteLine("SeDir: " + selectionDirection);
             LoadStudentGroupComboBox(selectionDirection);//
             string columns = "*";
             string table = "Students";

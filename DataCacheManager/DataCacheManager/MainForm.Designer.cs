@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             statusLabel = new Label();
-            dataGridView1 = new DataGridView();
+            dgvStudents = new DataGridView();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            comboBox1 = new ComboBox();
-            comboBox2 = new ComboBox();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            cbDirection = new ComboBox();
+            cbGroups = new ComboBox();
+            ((System.ComponentModel.ISupportInitialize)dgvStudents).BeginInit();
             SuspendLayout();
             // 
             // statusLabel
@@ -46,43 +46,46 @@
             statusLabel.TabIndex = 0;
             statusLabel.Text = "Connection: Faild";
             // 
-            // dataGridView1
+            // dgvStudents
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Dock = DockStyle.Bottom;
-            dataGridView1.Location = new Point(0, 75);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(800, 375);
-            dataGridView1.TabIndex = 1;
+            dgvStudents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvStudents.Dock = DockStyle.Bottom;
+            dgvStudents.Location = new Point(0, 75);
+            dgvStudents.Name = "dgvStudents";
+            dgvStudents.Size = new Size(800, 375);
+            dgvStudents.TabIndex = 1;
+            dgvStudents.CellContentClick += dataGridView1_CellContentClick;
             // 
-            // comboBox1
+            // cbDirection
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(12, 31);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(310, 23);
-            comboBox1.TabIndex = 2;
+            cbDirection.FormattingEnabled = true;
+            cbDirection.Location = new Point(12, 31);
+            cbDirection.Name = "cbDirection";
+            cbDirection.Size = new Size(310, 23);
+            cbDirection.TabIndex = 2;
+            cbDirection.SelectionChangeCommitted += cbDirection_SelectionChangeCommitted;
             // 
-            // comboBox2
+            // cbGroups
             // 
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(443, 31);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(327, 23);
-            comboBox2.TabIndex = 3;
+            cbGroups.FormattingEnabled = true;
+            cbGroups.Location = new Point(443, 31);
+            cbGroups.Name = "cbGroups";
+            cbGroups.Size = new Size(327, 23);
+            cbGroups.TabIndex = 3;
+            cbGroups.SelectionChangeCommitted += cbGroups_SelectionChangeCommitted;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(comboBox2);
-            Controls.Add(comboBox1);
-            Controls.Add(dataGridView1);
+            Controls.Add(cbGroups);
+            Controls.Add(cbDirection);
+            Controls.Add(dgvStudents);
             Controls.Add(statusLabel);
             Name = "MainForm";
             Text = "Academy";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvStudents).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -90,9 +93,9 @@
         #endregion
 
         private Label statusLabel;
-        private DataGridView dataGridView1;
+        private DataGridView dgvStudents;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private ComboBox comboBox1;
-        private ComboBox comboBox2;
+        private ComboBox cbDirection;
+        private ComboBox cbGroups;
     }
 }

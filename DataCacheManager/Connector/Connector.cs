@@ -1,18 +1,21 @@
-﻿
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using System.Runtime.InteropServices;
 namespace DataBaseConnector
+    // КЛАСС ОТВЕЧАЕТ ЗА ПОДКЛЮЧЕНИЕ К БАЗЕ ДЕННАХЫ
 {
     public interface IConnector
     {
         public string ConnectionString { get; }
-        public SqlConnection GetConnection();
     }
     public class Connector : IConnector
     {
         private string _connectionString;
-        public Connector(IConfiguration configuration)
+        //private readonly ILogger<Connector> _logger;
+        public Connector(IConfiguration configuration/*, ILogger<Connector>logger = null*/)
         {
+            //_logger = logger ?? throw new ArgumentNullException(nameof(logger));
             try
             {
                 _connectionString = configuration.GetConnectionString("VPD_311_Import");
@@ -23,7 +26,8 @@ namespace DataBaseConnector
             }
             catch(Exception ex)
             {
-                Console.WriteLine("Main Error: " + ex.ToString);
+                //_logger?.LogError(ex, "Error loading connection string");
+                Console.WriteLine("Error loading connection string" + ex);
             }
             
         }
@@ -31,9 +35,7 @@ namespace DataBaseConnector
         {
             get { return _connectionString; }
         }
-        public SqlConnection GetConnection()
-        {
-            return new SqlConnection(_connectionString);
-        }
+
     }
+
 }
