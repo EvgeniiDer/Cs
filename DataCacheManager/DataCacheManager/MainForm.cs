@@ -61,7 +61,7 @@ namespace DataCacheManager
             targetComboBox.SelectedIndex = 0;
             targetComboBox.Enabled = targetComboBox.Items.Count > 0;
         }
-        private void LoadtDiectionComboBox()
+        private void LoadtDiectionComboBox(string directionName = null)
         {
             ComboBox targetComboBox = cbDirection;
             if (targetComboBox == null)
@@ -116,6 +116,7 @@ namespace DataCacheManager
                             WHERE 
                                 direction_id = '{selectionDirection}';
                         ";
+
             }
             _dc.FillTable(_dc.GetTable(2), condition, _dc.GetConnection());
             dgvStudents.DataSource = _dc.GetTable(2);
@@ -123,9 +124,10 @@ namespace DataCacheManager
 
         private void cbGroups_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            string selectionGroup = cbGroups.SelectedIndex.ToString();
+            string selectedGroup = cbGroups.SelectedIndex.ToString();
+            string selectionDirection = cbDirection.SelectedIndex.ToString();
             string condition = null;
-            if(selectionGroup != "All groups")
+            if(selectedGroup != "All groups")
             {
                 condition = $@"
                             SELECT 
@@ -139,10 +141,13 @@ namespace DataCacheManager
                                 Students AS St 
                             INNER JOIN 
                                 Groups AS Gr ON Gr.group_id = St.[group]
+                            INNER JOIN
+                                Directions AS Dir ON Dir.direction_id = Gr.direction 
                             WHERE 
-                                Gr.group_id = '{selectionGroup}';
+                                Gr.group_id = '{selectedGroup}' 
+                                AND
+                                Dir.direction_id = '{selectionDirection}'
                         ";
-
             }
             _dc.FillTable(_dc.GetTable(2), condition, _dc.GetConnection());
             dgvStudents.DataSource = _dc.GetTable(2);
