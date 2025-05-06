@@ -5,8 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ListView"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="WPF - ListView" Height="450" Width="800" FontSize="25">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBox Name="txtEntry" Height="35"/>
+
+        <Button Grid.Column="1" Width="100" Name="btnAdd"    Content="Add"    HorizontalAlignment="Left" Margin="0,0,0,0" Click="btnAdd_Click"/>
+        <Button Grid.Column="1" Width="100" Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="100,0,0,0" Click="btnDelete_Click" />
+        <Button Grid.Column="1" Width="100" Name="btnClear"  Content="Clear"  HorizontalAlignment="Left" Margin="200,0,0,0" Click="btnClear_Click"/>
+
+        <ListView Name="lvEntries" Grid.Row="1" Grid.ColumnSpan="2"/>
+
     </Grid>
 </Window>

@@ -24,5 +24,24 @@ namespace ListView
         {
             InitializeComponent();
         }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if (lvEntries.Items.Contains(txtEntry.Text))
+                return;
+            lvEntries.Items.Add(txtEntry.Text);
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (lvEntries.SelectedIndex == -1)
+                return;
+            lvEntries.Items.RemoveAt(lvEntries.SelectedIndex);
+        }
+
+        private void btnClear_Click(object sender, RoutedEventArgs e)
+        {
+            lvEntries.Items.Clear();
+        }
     }
 }
