@@ -8,7 +8,7 @@
         Title="WPF - ListView" Height="450" Width="800" FontSize="25">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="35"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -27,9 +27,9 @@
             <!--<Rectangle Fill="Red"/>
             <Rectangle Grid.Column="1" Fill="Green"/>
             <Rectangle Grid.Column="2" Fill="Blue"/>-->
-            <Button Grid.Column="0" Width="auto" Name="btnAdd"    Content="Add"     Margin="7"   Click="btnAdd_Click"/>
-            <Button Grid.Column="1" Width="auto" Name="btnDelete" Content="Delete"  Margin="7"   Click="btnDelete_Click" />
-            <Button Grid.Column="2" Width="auto" Name="btnClear"  Content="Clear"   Margin="7"  Click="btnClear_Click"/>
+            <Button Grid.Column="0" Width="auto" Name="btnAdd"    Content="Add"        Click="btnAdd_Click"/>
+            <Button Grid.Column="1" Width="auto" Name="btnDelete" Content="Delete"     Click="btnDelete_Click" />
+            <Button Grid.Column="2" Width="auto" Name="btnClear"  Content="Clear"     Click="btnClear_Click"/>
         </Grid>
 
 
