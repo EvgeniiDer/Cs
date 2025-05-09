@@ -84,18 +84,31 @@ namespace WPFSqlCleint
 
         private void SqlQueryTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.Enter)//Надо Удерживать Контр
+            if (e.Key == Key.Enter)//Надо Удерживать Контр
             {
                 string sqlQuery = SqlQueryTextBox.Text;
                 _table = new DataTable();
-                using (SqlConnection connection = _data.GetConnection())
+                try
                 {
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(sqlQuery, connection))
+
+                    using (SqlConnection connection = _data.GetConnection())
                     {
-                        adapter.Fill(_table);
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(sqlQuery, connection))
+                        {
+                            adapter.Fill(_table);
+                        }
                     }
+                    ResultDataGrid.ItemsSource = _table.DefaultView;
                 }
-                ResultDataGrid.ItemsSource = _table.DefaultView;
+                catch (SqlException sqlEx)
+                {
+                    MessageBox.Show("An error occurred while executing the SQL query: " + sqlEx.Message, "SQL Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (Exception ex)
+                {
+                    // Handle other exceptions
+                    MessageBox.Show("An unexpected error occurred: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }
