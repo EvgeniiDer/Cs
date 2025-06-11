@@ -107,6 +107,7 @@ namespace WPFSqlCleint
                 catch (Exception ex)
                 {
                     // Handle other exceptions
+                    
                     MessageBox.Show("An unexpected error occurred: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
