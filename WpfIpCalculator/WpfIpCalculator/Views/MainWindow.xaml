@@ -1,0 +1,66 @@
+﻿<Window x:Class="WpfIpCalculator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfIpCalculator"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Content="IP-Adress:" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Margin="5, 2" Text="{Binding IpAddressInput, UpdateSourceTrigger=PropertyChanged}"/>
+        
+        <Label Grid.Row="1" Grid.Column="0" Content="Mask(CIDR): /" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="MyText" Margin="5,2"/>
+
+        <Button Grid.Row="2" Grid.Column="0" Margin="5, 10" Padding="10,5" Content="Result" FontWeight="Bold"/>
+
+        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0, 10, 0, 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Network Address" FontWeight="Bold"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="Network Address" IsReadOnly="True" Margin="5,2"/>
+
+            <Label Grid.Row="1" Grid.Column="0" Content="Subnet Mask" FontWeight="Bold"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="Subnet Mask" IsReadOnly="True" Margin="5,2"/>
+
+            <Label Grid.Row="2" Grid.Column="0" Content="Reverce Subnet Mask" FontWeight="Bold"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="Reverce Subnet Mask" IsReadOnly="True" Margin="5,2"/>
+
+            <Label Grid.Row="3" Grid.Column="0" Content="First Host" FontWeight="Bold"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Text="First Host" IsReadOnly="True" Margin="5,2"/>
+
+            <Label Grid.Row="4" Grid.Column="0" Content="Last Host" FontWeight="Bold"/>
+            <TextBox Grid.Row="4" Grid.Column="1" Text="Last Host" IsReadOnly="True" Margin="5,2"/>
+
+            <Label Grid.Row="5" Grid.Column="0" Content="Number of Hosts" FontWeight="Bold"/>
+            <TextBox Grid.Row="5" Grid.Column="1" Text="Number of Hosts" IsReadOnly="True" Margin="5,2"/>
+
+
+        </Grid>
+
+
+    </Grid>
+</Window>
